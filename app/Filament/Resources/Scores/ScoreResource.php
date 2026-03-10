@@ -39,12 +39,21 @@ class ScoreResource extends Resource
         ];
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Skor';
+    }
+    
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-chart-bar';
+    }
     public static function getPages(): array
     {
         return [
             'index' => ListScores::route('/'),
-            'create' => CreateScore::route('/create'),
-            'edit' => EditScore::route('/{record}/edit'),
+            // 'create' => CreateScore::route('/create'),
+            // 'edit' => EditScore::route('/{record}/edit'),
         ];
     }
 }

@@ -39,12 +39,22 @@ class RoomResource extends Resource
         ];
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Room';
+    }
+    
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-video-camera';
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => ListRooms::route('/'),
-            'create' => CreateRoom::route('/create'),
-            'edit' => EditRoom::route('/{record}/edit'),
+            // 'create' => CreateRoom::route('/create'),
+            // 'edit' => EditRoom::route('/{record}/edit'),
         ];
     }
 }

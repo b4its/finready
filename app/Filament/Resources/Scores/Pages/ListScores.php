@@ -8,12 +8,13 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListScores extends ListRecords
 {
+    protected static ?string $title = 'Skor';
     protected static string $resource = ScoreResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            // CreateAction::make(),
         ];
     }
 }

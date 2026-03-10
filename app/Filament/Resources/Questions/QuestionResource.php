@@ -39,12 +39,22 @@ class QuestionResource extends Resource
         ];
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Pertanyaan';
+    }
+    
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-question-mark-circle';
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => ListQuestions::route('/'),
-            'create' => CreateQuestion::route('/create'),
-            'edit' => EditQuestion::route('/{record}/edit'),
+            // 'create' => CreateQuestion::route('/create'),
+            // 'edit' => EditQuestion::route('/{record}/edit'),
         ];
     }
 }

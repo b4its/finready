@@ -8,6 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 
 class ListModuleContents extends ListRecords
 {
+    protected static ?string $title = 'Modul Konten';
     protected static string $resource = ModuleContentResource::class;
 
     protected function getHeaderActions(): array

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relasi One-to-One dengan Profile
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'idUsers', 'id');
+    }
+
+    // Relasi One-to-Many dengan Score
+    public function scores()
+    {
+        return $this->hasMany(Score::class, 'idUsers', 'id');
     }
 }

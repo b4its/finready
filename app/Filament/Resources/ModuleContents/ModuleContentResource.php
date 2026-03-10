@@ -32,6 +32,15 @@ class ModuleContentResource extends Resource
         return ModuleContentsTable::configure($table);
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Modul Konten';
+    }
+    public static function getNavigationIcon(): string
+    {
+        return 'heroicon-o-document-text';
+    }
+
     public static function getRelations(): array
     {
         return [
@@ -43,8 +52,8 @@ class ModuleContentResource extends Resource
     {
         return [
             'index' => ListModuleContents::route('/'),
-            'create' => CreateModuleContent::route('/create'),
-            'edit' => EditModuleContent::route('/{record}/edit'),
+            // 'create' => CreateModuleContent::route('/create'),
+            // 'edit' => EditModuleContent::route('/{record}/edit'),
         ];
     }
 }
