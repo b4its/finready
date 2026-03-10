@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -27,17 +28,26 @@ class UmkmPanelProvider extends PanelProvider
             ->id('umkm')
             ->path('umkm')
             ->brandName('UMKM Panel')
+            ->login()
+            ->registration()
+            ->globalSearch(false)
             ->colors([
                 'primary' => Color::Emerald,
             ])
-            ->discoverResources(in: app_path('Filament/Resources/Umkm'), for: 'App\Filament\Resources/Umkm')
-            ->discoverPages(in: app_path('Filament/Pages/Umkm'), for: 'App\Filament\Pages/Umkm')
+            ->discoverResources(in: app_path('Filament/Resources/Umkm'), for: 'App\Filament\Resources\Umkm')
+            ->discoverPages(in: app_path('Filament/Pages/Umkm'), for: 'App\Filament\Pages\Umkm')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets/Umkm'), for: 'App\Filament\Widgets/Umkm')
+            ->discoverWidgets(in: app_path('Filament/Widgets/Umkm'), for: 'App\Filament\Widgets\Umkm')
             ->widgets([
                 AccountWidget::class,
+            ])
+            ->navigationItems([
+                NavigationItem::make('Pembelajaran')
+                    ->url(fn () => route('learning.index'))
+                    ->icon('heroicon-o-book-open')
+                    ->sort(1),
             ])
             ->middleware([
                 EncryptCookies::class,

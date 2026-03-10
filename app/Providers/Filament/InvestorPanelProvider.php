@@ -27,6 +27,8 @@ class InvestorPanelProvider extends PanelProvider
             ->id('investor')
             ->path('investor')
             ->brandName('Investor Panel')
+            ->login()
+            ->globalSearch(false)
             ->colors([
                 'primary' => Color::Blue,
             ])

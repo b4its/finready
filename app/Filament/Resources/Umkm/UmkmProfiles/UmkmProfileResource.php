@@ -39,6 +39,12 @@ class UmkmProfileResource extends Resource
         ];
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        // Hanya tampil jika ID panel adalah 'admin' (sesuaikan dengan ID panel Anda)
+        return filament()->getCurrentPanel()->getId() === 'umkm';
+    }
+
     public static function getPages(): array
     {
         return [

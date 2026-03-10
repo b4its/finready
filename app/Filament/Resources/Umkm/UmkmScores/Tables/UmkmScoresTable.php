@@ -19,7 +19,7 @@ class UmkmScoresTable
             ->query(
                 Score::query()
                     ->selectRaw('score.*, ROW_NUMBER() OVER (ORDER BY created_at desc) as row_num')
-                    ->where('idUser', Auth::user()->id)
+                    ->where('idUsers', Auth::user()->id)
                     ->orderBy('created_at', 'desc') // urutkan tampilannya dari terbaru
             )
             ->columns([
