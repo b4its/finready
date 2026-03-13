@@ -38,6 +38,10 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
+            ->renderHook(
+                'panels::auth.login.form.after',
+                fn () => view('filament.hooks.halaman-utama-button'),
+            )
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,

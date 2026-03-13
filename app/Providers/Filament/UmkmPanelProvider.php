@@ -29,7 +29,6 @@ class UmkmPanelProvider extends PanelProvider
             ->path('umkm')
             ->brandName('UMKM Panel')
             ->login()
-            ->registration()
             ->globalSearch(false)
             ->colors([
                 'primary' => Color::Emerald,
@@ -39,10 +38,15 @@ class UmkmPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
             ])
+            ->renderHook(
+                'panels::auth.login.form.after',
+                fn () => view('filament.hooks.halaman-utama-button'),
+            )
             ->discoverWidgets(in: app_path('Filament/Widgets/Umkm'), for: 'App\Filament\Widgets\Umkm')
             ->widgets([
                 AccountWidget::class,
             ])
+            
             ->navigationItems([
                 NavigationItem::make('Pembelajaran')
                     ->url(fn () => route('learning.index'))
