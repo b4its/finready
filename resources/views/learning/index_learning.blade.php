@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,6 +24,20 @@
       --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
     }
 
+    [data-theme="dark"] {
+      --bg: #111110;
+      --card: #1c1b19;
+      --border: #2e2c28;
+      --text: #f0ede7;
+      --muted: #8a8479;
+      --primary: #22c55e;
+      --primary-light: #14291e;
+      --success: #22c55e;
+      --success-light: #14291e;
+      --secondary: #252320;
+      --shadow: 0 1px 3px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+    }
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
@@ -31,12 +45,14 @@
       min-height: 100vh;
       font-size: 15px;
       line-height: 1.6;
+      transition: background .25s, color .25s;
     }
 
     /* HEADER */
     .header {
       background: var(--card);
       border-bottom: 1px solid var(--border);
+      transition: background .25s, border-color .25s;
     }
     .header-inner {
       max-width: 1200px;
@@ -46,14 +62,75 @@
       flex-direction: column;
       gap: 24px;
     }
+
+    /* TOP BAR: breadcrumb + dark mode toggle in same row */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .breadcrumb {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 13px;
       color: var(--muted);
+      cursor: pointer;
+      transition: color .15s;
     }
+    .breadcrumb:hover { color: var(--text); }
     .breadcrumb svg { width: 14px; height: 14px; }
+
+    /* DARK MODE TOGGLE */
+    .dark-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 5px 12px 5px 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      font-family: inherit;
+      transition: background .2s, border-color .2s, color .2s;
+      white-space: nowrap;
+    }
+    .dark-toggle:hover { color: var(--text); border-color: var(--muted); }
+    .toggle-track {
+      width: 32px;
+      height: 18px;
+      background: var(--border);
+      border-radius: 99px;
+      position: relative;
+      transition: background .25s;
+      flex-shrink: 0;
+    }
+    [data-theme="dark"] .toggle-track { background: var(--primary); }
+    .toggle-thumb {
+      width: 14px;
+      height: 14px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform .25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    [data-theme="dark"] .toggle-thumb { transform: translateX(14px); }
+    .toggle-icon { width: 14px; height: 14px; }
+
+    /* HEADER ROW — Continue Learning aligned with Kembali */
     .header-row {
       display: flex;
       align-items: flex-start;
@@ -91,8 +168,10 @@
       white-space: nowrap;
       transition: background .18s, transform .12s;
       flex-shrink: 0;
+      align-self: flex-start;
     }
     .btn-continue:hover { background: #15803d; transform: translateY(-1px); }
+    [data-theme="dark"] .btn-continue:hover { background: #16a34a; }
     .btn-continue svg { width: 15px; height: 15px; }
 
     .progress-wrap { display: flex; flex-direction: column; gap: 8px; }
@@ -142,6 +221,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      transition: background .25s, border-color .25s;
     }
     .card-header {
       padding: 20px 20px 12px;
@@ -169,6 +249,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: background .25s;
     }
     .stat-icon svg { width: 18px; height: 18px; color: var(--text); }
     .stat-label { font-size: 14px; font-weight: 600; }
@@ -187,6 +268,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: background .25s;
     }
     .avatar svg { width: 22px; height: 22px; color: var(--primary); }
 
@@ -199,6 +281,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: background .25s;
     }
     .cert-icon svg { width: 18px; height: 18px; color: var(--primary); }
     .cert-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
@@ -218,6 +301,7 @@
       font-weight: 600;
       font-family: inherit;
       cursor: not-allowed;
+      transition: background .25s, border-color .25s;
     }
     .btn-complete svg { width: 16px; height: 16px; }
 
@@ -279,6 +363,7 @@
       background: var(--border);
       margin-top: 4px;
       min-height: 20px;
+      transition: background .25s;
     }
     .timeline-line.completed { background: var(--success); }
 
@@ -289,7 +374,7 @@
       background: var(--card);
       box-shadow: var(--shadow);
       overflow: hidden;
-      transition: box-shadow .2s;
+      transition: box-shadow .2s, background .25s, border-color .25s;
       margin-bottom: 4px;
     }
     .module-card.in-progress {
@@ -373,6 +458,7 @@
       background: var(--secondary);
       border-radius: 99px;
       overflow: hidden;
+      transition: background .25s;
     }
     .mini-bar-fill {
       height: 100%;
@@ -406,6 +492,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: background .25s;
     }
     .lesson-icon-wrap.completed { background: var(--success-light); color: var(--success); }
     .lesson-icon-wrap.in-progress { background: var(--primary-light); color: var(--primary); }
@@ -429,6 +516,7 @@
       border-top: 1px solid var(--border);
       background: var(--card);
       padding: 24px;
+      transition: background .25s, border-color .25s;
     }
 
     @media (max-width: 900px) {
@@ -442,7 +530,6 @@
       .module-meta { display: none; }
     }
 
-    /* SVG icon inline helpers */
     svg { vertical-align: middle; }
   </style>
 </head>
@@ -451,20 +538,51 @@
 <!-- HEADER -->
 <header class="header">
   <div class="header-inner">
-    <div class="breadcrumb">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-      <span>Kembali</span>
+
+    <!-- TOP BAR: navigasi kiri + dark mode toggle kanan -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="breadcrumb">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
+          <span>Course</span>
+        </div>
+        <!-- <div class="breadcrumb">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          <span>Kembali</span>
+        </div> -->
+      </div>
+
+      <!-- Dark Mode Toggle -->
+      <button class="dark-toggle" onclick="toggleDark()" aria-label="Toggle dark mode">
+        <!-- Sun icon (light mode) -->
+        <svg class="toggle-icon" id="icon-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <!-- Moon icon (dark mode) -->
+        <svg class="toggle-icon" id="icon-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display:none">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span id="toggle-label">Dark</span>
+      </button>
     </div>
 
+    <!-- HEADER ROW: judul + tombol Continue Learning sejajar Kembali -->
     <div class="header-row">
-      <div class="header-text">
-        <h1>Master Web Development</h1>
-        <p>Build modern, responsive websites from scratch. Learn HTML, CSS, JavaScript, and responsive design principles through hands-on projects.</p>
-      </div>
+      <button class="btn-continue">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Kembali
+      </button>
       <button class="btn-continue">
         Continue Learning
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
       </button>
+    </div>
+    <div class="header-row">
+      <div class="header-text">
+        <h1>Pembelajaran Pengelolaan Keuangan</h1>
+        <p>Build modern, responsive websites from scratch. Learn HTML, CSS, JavaScript, and responsive design principles through hands-on projects.</p>
+      </div>
     </div>
 
     <div class="progress-wrap">
@@ -514,34 +632,10 @@
           <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div>
         </div>
         <div class="lessons-list" id="ll1">
-          <div class="lesson-item">
-            <div class="lesson-left">
-              <div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
-              <div><div class="lesson-name">How the Web Works</div><div class="lesson-type">video</div></div>
-            </div>
-            <div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>12 min</div>
-          </div>
-          <div class="lesson-item">
-            <div class="lesson-left">
-              <div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
-              <div><div class="lesson-name">Setting Up Your Environment</div><div class="lesson-type">reading</div></div>
-            </div>
-            <div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>8 min</div>
-          </div>
-          <div class="lesson-item">
-            <div class="lesson-left">
-              <div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
-              <div><div class="lesson-name">Your First Webpage</div><div class="lesson-type">video</div></div>
-            </div>
-            <div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>15 min</div>
-          </div>
-          <div class="lesson-item">
-            <div class="lesson-left">
-              <div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div>
-              <div><div class="lesson-name">Module Quiz</div><div class="lesson-type">quiz</div></div>
-            </div>
-            <div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>10 min</div>
-          </div>
+          <div class="lesson-item"><div class="lesson-left"><div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div><div><div class="lesson-name">How the Web Works</div><div class="lesson-type">video</div></div></div><div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>12 min</div></div>
+          <div class="lesson-item"><div class="lesson-left"><div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div><div><div class="lesson-name">Setting Up Your Environment</div><div class="lesson-type">reading</div></div></div><div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>8 min</div></div>
+          <div class="lesson-item"><div class="lesson-left"><div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div><div><div class="lesson-name">Your First Webpage</div><div class="lesson-type">video</div></div></div><div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>15 min</div></div>
+          <div class="lesson-item"><div class="lesson-left"><div class="lesson-icon-wrap completed"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg></div><div><div class="lesson-name">Module Quiz</div><div class="lesson-type">quiz</div></div></div><div class="lesson-dur"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 6v6l4 2"/></svg>10 min</div></div>
         </div>
       </div>
     </div>
@@ -581,7 +675,7 @@
       </div>
     </div>
 
-    <!-- MODULE 3 (in-progress, expanded by default) -->
+    <!-- MODULE 3 (in-progress) -->
     <div class="module-wrap">
       <div class="timeline-col">
         <div class="module-dot in-progress"><span>3</span></div>
@@ -623,7 +717,7 @@
       </div>
     </div>
 
-    <!-- MODULES 4, 5, 6 (locked) -->
+    <!-- MODULE 4 -->
     <div class="module-wrap">
       <div class="timeline-col">
         <div class="module-dot"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></div>
@@ -641,6 +735,7 @@
       </div>
     </div>
 
+    <!-- MODULE 5 -->
     <div class="module-wrap">
       <div class="timeline-col">
         <div class="module-dot"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></div>
@@ -658,6 +753,7 @@
       </div>
     </div>
 
+    <!-- MODULE 6 -->
     <div class="module-wrap">
       <div class="timeline-col">
         <div class="module-dot"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></div>
@@ -694,7 +790,6 @@
         </div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-header"><h3>Instructor</h3></div>
       <div class="card-body">
@@ -704,7 +799,6 @@
         </div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-header"><h3>Certificate</h3></div>
       <div class="card-body">
@@ -714,7 +808,6 @@
         </div>
       </div>
     </div>
-
     <button class="btn-complete" disabled>
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
       Mark Course Complete
@@ -748,6 +841,26 @@
     const isOpen = ll.classList.contains('open');
     ll.classList.toggle('open', !isOpen);
     if (chev) chev.classList.toggle('open', !isOpen);
+  }
+
+  function toggleDark() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+
+    const iconLight = document.getElementById('icon-light');
+    const iconDark = document.getElementById('icon-dark');
+    const label = document.getElementById('toggle-label');
+
+    if (isDark) {
+      iconLight.style.display = '';
+      iconDark.style.display = 'none';
+      label.textContent = 'Dark';
+    } else {
+      iconLight.style.display = 'none';
+      iconDark.style.display = '';
+      label.textContent = 'Light';
+    }
   }
 </script>
 </body>

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('level')->nullable();
             $table->timestamps();
         });
     }
