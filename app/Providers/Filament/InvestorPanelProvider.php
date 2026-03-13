@@ -32,8 +32,8 @@ class InvestorPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->discoverResources(in: app_path('Filament/Resources/Investor'), for: 'App\Filament\Resources/Investor')
-            ->discoverPages(in: app_path('Filament/Pages/Investor'), for: 'App\Filament\Pages/Investor')
+            ->discoverResources(in: app_path('Filament/Resources/Investor'), for: 'App\Filament\Resources\Investor')
+            ->discoverPages(in: app_path('Filament/Pages/Investor'), for: 'App\Filament\Pages\Investor')
             ->pages([
                 Dashboard::class,
             ])
@@ -41,7 +41,7 @@ class InvestorPanelProvider extends PanelProvider
                 'panels::auth.login.form.after',
                 fn () => view('filament.hooks.halaman-utama-button'),
             )
-            ->discoverWidgets(in: app_path('Filament/Widgets/Investor'), for: 'App\Filament\Widgets/Investor')
+            ->discoverWidgets(in: app_path('Filament/Widgets/Investor'), for: 'App\Filament\Widgets\Investor')
             ->widgets([
                 AccountWidget::class,
             ])

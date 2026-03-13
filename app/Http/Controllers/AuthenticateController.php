@@ -72,7 +72,7 @@ class AuthenticateController extends Controller
     {
         // 1. Validasi menggunakan array syntax (lebih aman) dan aturan 'confirmed'
         $validated = $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users,name'],
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role'     => ['required', 'string', 'in:umkm,investor'],
@@ -81,7 +81,7 @@ class AuthenticateController extends Controller
         // 2. Gunakan DB Transaction untuk konsistensi data
         $user = DB::transaction(function () use ($validated) {
             $newUser = User::create([
-                'name'     => $validated['username'],
+                'name'     => $validated['name'],
                 'email'    => $validated['email'],
                 'password' => $validated['password'], 
                 'role'     => $validated['role'], 
