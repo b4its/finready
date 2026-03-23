@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class SosialMedia extends Model
 {
     //
-    protected $table = 'sosial_media'; // Deklarasi nama tabel karena singular
+    protected $table = 'sosial_media';
 
     protected $fillable = [
-        'idUsers',
+        'idUmkmProfile', // Diperbaiki: sebelumnya idUsers
         'name',
         'link',
     ];
 
-    // Relasi Inverse ke User
-    public function user()
+    // Relasi Inverse ke UmkmProfile
+    public function umkmProfile()
     {
-        return $this->belongsTo(User::class, 'idUsers', 'id');
+        return $this->belongsTo(UmkmProfile::class, 'idUmkmProfile', 'id');
     }
 }

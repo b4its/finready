@@ -12,7 +12,7 @@ class UmkmProfilePersonal extends Page
 {
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-user';
     protected string $view = 'filament.pages.umkm.umkm-profile-personal';
-    protected static ?string $title = 'Profil Personal UMKM';
+    protected static ?string $title = 'Profil Pemilik UMKM';
     public ?array $data = [];
 
     public function mount(): void
@@ -37,7 +37,7 @@ class UmkmProfilePersonal extends Page
         return $form
             ->schema([
                 \Filament\Forms\Components\TextInput::make('user.name')
-                    ->label('Nama Personal UMKM')
+                    ->label('Nama Pemilik UMKM')
                     ->required()
                     ->maxLength(255),
                 

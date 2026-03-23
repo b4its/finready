@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UmkmProfile extends Model
 {
     //
-    protected $table = 'umkm_profile'; // Deklarasi nama tabel karena singular
+    protected $table = 'umkm_profile';
 
     protected $fillable = [
         'idUsers',
@@ -16,11 +16,18 @@ class UmkmProfile extends Model
         'nib',
         'phone',
         'alamat',
+        'modal_awal',
     ];
 
     // Relasi Inverse ke User
     public function user()
     {
         return $this->belongsTo(User::class, 'idUsers', 'id');
+    }
+
+    // Tambahkan Relasi HasMany ke SosialMedia
+    public function sosialMedia()
+    {
+        return $this->hasMany(SosialMedia::class, 'idUmkmProfile', 'id');
     }
 }

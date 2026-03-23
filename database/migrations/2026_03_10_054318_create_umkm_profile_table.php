@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('alamat')->nullable();
             $table->string('level')->nullable()->default('learning');
+            $table->decimal('modal_awal', 15, 2)->nullable()->default(0);
             $table->timestamps();
         });
     }

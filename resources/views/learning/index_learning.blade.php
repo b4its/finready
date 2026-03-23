@@ -580,7 +580,7 @@
     </div>
     <div class="header-row">
       <div class="header-text">
-        <h1>Pembelajaran Pengelolaan Keuangan</h1>
+        <h1>Pembelajaran Akuntansi</h1>
         <p>Build modern, responsive websites from scratch. Learn HTML, CSS, JavaScript, and responsive design principles through hands-on projects.</p>
       </div>
     </div>

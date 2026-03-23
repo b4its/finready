@@ -12,6 +12,7 @@ class Modul extends Model
         'name',
         'description',
         'type',
+        'max_point'
     ];
 
     // Relasi One-to-Many ke ModuleContent

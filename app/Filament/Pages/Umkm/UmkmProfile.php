@@ -5,6 +5,7 @@ namespace App\Filament\Pages\Umkm;
 use App\Models\UmkmProfile as UmkmProfileModel;
 use BackedEnum;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater;
 use Filament\Pages\Page;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -25,7 +26,7 @@ class UmkmProfile extends Page implements HasForms
 
     public function mount(): void
     {
-        $profile = UmkmProfileModel::firstOrCreate(
+        $profile = UmkmProfileModel::with('sosialMedia')->firstOrCreate(
             ['idUsers' => Auth::id()],
             [
                 'name' => Auth::user()->name ?? '',
@@ -36,10 +37,13 @@ class UmkmProfile extends Page implements HasForms
             ]
         );
 
-        $this->form->fill($profile->toArray());
+        $profileData = $profile->toArray();
+        // Override key menjadi camelCase agar persis sama dengan nama Repeater
+        $profileData['sosialMedia'] = $profile->sosialMedia->toArray();
+
+        $this->form->fill($profileData);
     }
 
-    // Perubahan krusial: Menyesuaikan parameter dengan arsitektur Filament 5.x (Schema)
     public function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $form
@@ -73,6 +77,29 @@ class UmkmProfile extends Page implements HasForms
                     ->required()
                     ->rows(3)
                     ->columnSpanFull(),
+
+                Repeater::make('sosialMedia')
+                    ->label('Sosial Media')
+                    // relationship() dihapus di sini karena kita handle state manual
+                    ->schema([
+                        Select::make('name')
+                            ->label('Nama Platform (Contoh: Instagram, Facebook)')
+                            ->required()
+                            ->options([
+                                'instagram' => 'Instagram',
+                                'facebook' => 'Facebook',
+                                'tiktok' => 'Tiktok',
+                                'twitter' => 'Twitter',
+                            ]),
+                        \Filament\Forms\Components\TextInput::make('link')
+                            ->label('Link / URL')
+                            ->url()
+                            ->required()
+                            ->maxLength(255),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull()
+                    ->addActionLabel('Tambah Sosial Media'),
             ])
             ->statePath('data');
     }
@@ -81,10 +108,19 @@ class UmkmProfile extends Page implements HasForms
     {
         $data = $this->form->getState();
 
-        UmkmProfileModel::updateOrCreate(
+        $sosialMediaData = $data['sosialMedia'] ?? [];
+        unset($data['sosialMedia']);
+
+        $profile = UmkmProfileModel::updateOrCreate(
             ['idUsers' => Auth::id()],
             $data
         );
+
+        $profile->sosialMedia()->delete();
+        
+        if (!empty($sosialMediaData)) {
+            $profile->sosialMedia()->createMany($sosialMediaData);
+        }
 
         Notification::make()
             ->success()
